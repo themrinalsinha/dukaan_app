@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  web_service:
+    container_name: dukaan_webservice
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db_service
+      - redis_service
+    command: >
+      bash -c "python manage.py migrate
+      && python manage.py runserver_plus 0.0.0.0:8000"
+
+  db_service:
+    container_name: dukaan_db_service
+    image: postgres:13-alpine
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    env_file:
+      - ./config/local.env
+
+  redis_service:
+    container_name: dukaan_redis_service
+    image: redis:latest
+
+volumes:
+  pgdata:
