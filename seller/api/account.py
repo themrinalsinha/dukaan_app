@@ -1,4 +1,4 @@
-from rest_framework import serializers, status
+from rest_framework import status
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from manager.auth import SellerAuth

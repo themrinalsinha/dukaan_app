@@ -1,4 +1,6 @@
 from secrets import token_hex
+
+from django.db.models import fields
 from seller.models.account import Store
 
 from django.db import IntegrityError
@@ -7,7 +9,7 @@ from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
 from manager.utils import get_store_link
-from seller.models import SellerAccount
+from seller.models import SellerAccount, Product, Category
 
 class SellerAccountSerializer(serializers.ModelSerializer):
     otp = serializers.CharField(required=True)
@@ -67,3 +69,14 @@ class StoreSerializer(serializers.ModelSerializer):
             return super().create(validated_data)
         except IntegrityError:
             raise ValidationError("Account with same store name already exists")
+
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = '__all__'
+
+class ProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = '__all__'
