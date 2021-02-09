@@ -44,7 +44,7 @@ class SellerAccountSerializer(serializers.ModelSerializer):
 class StoreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Store
-        fields = ["name", "address"]
+        fields = ["id", "name", "address"]
 
     def to_representation(self, instance):
         data = {
@@ -82,7 +82,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ['name', 'description', 'mrp', 'sale_price', 'image', 'category']
+        fields = ["id", 'name', 'description', 'mrp', 'sale_price', 'image', 'category']
 
     def create(self, validated_data):
         store = self.context["store"]

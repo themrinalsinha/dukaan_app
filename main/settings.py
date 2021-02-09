@@ -28,6 +28,7 @@ THIRD_PARTY_APPS = [
 
 CUSTOM_APPS = [
     'seller',
+    'buyer',
 ]
 
 INSTALLED_APPS += THIRD_PARTY_APPS + CUSTOM_APPS

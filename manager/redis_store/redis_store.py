@@ -17,3 +17,6 @@ class RedisStore:
         if remove:
             self.connection.delete(key)
         return values
+
+    def remove_from_cart(self, key: str, value: int, count: int=1) -> None:
+        return self.connection.lrem(key, count, value)
