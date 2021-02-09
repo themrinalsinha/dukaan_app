@@ -1,3 +1,3 @@
-from .account import SellerAccount
+from .account import SellerAccount, Store
 
-__all__ = ["SellerAccount"]
+__all__ = ["SellerAccount", "Store"]
