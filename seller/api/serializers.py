@@ -1,6 +1,5 @@
 from secrets import token_hex
 
-from django.db.models import fields
 from seller.models.account import Store
 
 from django.db import IntegrityError
