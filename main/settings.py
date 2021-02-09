@@ -95,3 +95,5 @@ REST_FRAMEWORK = {
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = join(ROOT_DIR, 'media')
+
+REDIS_CONNECTION_STRING = "redis://redis_service/0"

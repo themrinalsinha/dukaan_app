@@ -4,4 +4,5 @@ django-filter==2.4.0
 django-environ==0.4.5
 django-extensions==3.1.1
 psycopg2-binary==2.8.6
-Werkzeug==1.0.1
+werkzeug==1.0.1
+redis==3.5.3
