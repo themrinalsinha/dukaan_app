@@ -6,6 +6,7 @@ from django.utils.text import slugify
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
+from manager.utils import get_store_link
 from seller.models import SellerAccount
 
 class SellerAccountSerializer(serializers.ModelSerializer):
@@ -48,13 +49,19 @@ class StoreSerializer(serializers.ModelSerializer):
             "store_name": instance.name,
             "address": instance.address,
             "store_id": instance.slug,
+            "store_link": instance.meta_info.get("store_link"),
         }
         return data
 
     def create(self, validated_data):
         request = self.context["request"]
+        _store_slug = slugify(f"{request.account.mobile} {validated_data.get('name')}")
+
         validated_data.setdefault("seller", request.account)
-        validated_data.setdefault("slug", slugify(f"{request.account.mobile} {validated_data.get('name')}"))
+        validated_data.setdefault("slug", _store_slug)
+        validated_data.setdefault(
+            "meta_info", {"store_link": get_store_link(request, _store_slug)}
+        )
 
         try:
             return super().create(validated_data)

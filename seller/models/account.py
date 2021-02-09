@@ -19,6 +19,7 @@ class Store(models.Model):
     name = models.CharField(max_length=128)
     slug = models.CharField(max_length=256)
     address = models.TextField()
+    meta_info = models.JSONField(blank=True, null=True)
     created_on = models.DateTimeField(auto_now_add=True)
     modified_on = models.DateTimeField(auto_now=True)
 
