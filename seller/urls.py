@@ -1,4 +1,4 @@
-from django.urls import path, include
+from django.urls import path
 from .api import seller_account_create_view, seller_store_view
 
 urlpatterns = [

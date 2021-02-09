@@ -1,4 +1,5 @@
 from django.db import models
+from .account import SellerAccount, Store
 
 class Category(models.Model):
     name = models.CharField(max_length=128, db_index=True)
@@ -8,6 +9,9 @@ class Category(models.Model):
 
 
 class Product(models.Model):
+    seller = models.ForeignKey(SellerAccount, on_delete=models.CASCADE)
+    store = models.ForeignKey(Store, on_delete=models.CASCADE)
+
     name = models.CharField(max_length=128)
     description = models.TextField(blank=True, null=True)
     mrp = models.PositiveIntegerField()
@@ -17,3 +21,6 @@ class Product(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+    class Meta:
+        unique_together = ('seller', 'name', 'category')

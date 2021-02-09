@@ -18,9 +18,14 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from seller.api import product_view
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('seller/', include('seller.urls')),
+
+    # store access
+    path("store/<str:store_slug>/", product_view),
 ]
 
 if settings.DEBUG:

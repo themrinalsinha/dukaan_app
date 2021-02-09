@@ -74,9 +74,27 @@ class StoreSerializer(serializers.ModelSerializer):
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = '__all__'
+        fields = ["name"]
 
 class ProductSerializer(serializers.ModelSerializer):
+    # category = CategorySerializer(many=True)
+    category = serializers.CharField(required=True)
+
     class Meta:
         model = Product
-        fields = '__all__'
+        fields = ['name', 'description', 'mrp', 'sale_price', 'image', 'category']
+
+    def create(self, validated_data):
+        store = self.context["store"]
+
+        category = validated_data.pop('category')
+        category, _ = Category.objects.get_or_create(name=category)
+        validated_data.setdefault("seller", store.seller)
+        validated_data.setdefault("store", store)
+        validated_data.setdefault("category", category)
+
+        try:
+            instance = Product.objects.create(**validated_data)
+            return instance
+        except IntegrityError:
+            raise ValidationError("Product already exists")
