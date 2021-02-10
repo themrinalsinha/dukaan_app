@@ -42,5 +42,10 @@ class BuyerAuth(BaseAuthentication):
             request.unauthorized_account = session
             return None
 
+        elif "REMOTE_ADDR" in request.META:
+            remote = request.META["REMOTE_ADDR"]
+            request.unauthorized_account = remote
+            return None
+
         else:
             raise AuthenticationFailed("Something went wrong...")
